@@ -325,16 +325,14 @@ val input: List<String> = listOf(
 )
 
 var tree = '#'
+val maxIndex = input[0].length
 var currentIndexPart1 = 0
-var currentHeightPart1 = 0
 var treeCountPart1 = 0
 
-while(currentHeightPart1 < input.size - 1) {
-    input[currentHeightPart1][currentIndexPart1].takeIf { it == tree }?.let {
+input.forEach { currentLine ->
+    currentLine[currentIndexPart1].takeIf { it == tree }?.let {
         treeCountPart1++
     }
-    currentHeightPart1 += 1
-    val maxIndex = input[currentHeightPart1].length
     currentIndexPart1 = (currentIndexPart1 + 3) % maxIndex
 }
 
@@ -348,21 +346,16 @@ var slopes = listOf(
         Slope(7, 1),
         Slope(1, 2)
 )
-var currentHeightPart2 = 0
-val maxIndex = input[currentHeightPart2].length
 
-
-while(currentHeightPart2 < input.size) {
-    val currentLine = input[currentHeightPart2]
+input.forEachIndexed { index, currentLine ->
     slopes.forEach { slope ->
-        if ((currentHeightPart2 % slope.downwardMovement) == 0) {
+        if ((index % slope.downwardMovement) == 0) {
             currentLine[slope.currentIndex].takeIf { it == tree }?.let {
                 slope.treeCount++
             }
             slope.currentIndex = (slope.currentIndex + slope.sidewaysMovement) % maxIndex
         }
     }
-    currentHeightPart2 += 1
 }
 
 println("Part 2: ${slopes.multiplyOf { it.treeCount }}")
