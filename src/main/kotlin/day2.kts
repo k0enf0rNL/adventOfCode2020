@@ -1001,9 +1001,7 @@ val input: List<String> = listOf(
                 "14-17 n: nnhnnnnnnnnnnnnnhnn"
 )
 
-var totalMatchesPart1 = 0
-
-input.forEach {
+input.count {
     it.split(":").let {
         val password = it.last()
         val policy = it.first()
@@ -1013,18 +1011,14 @@ input.forEach {
             val character = it[2]
 
             val count = password.count { character.contains(it) }
-            if (count >= min && count <= max) {
-                totalMatchesPart1++
-            }
+            count >= min && count <= max
         }
     }
+}.let {
+    println("Part 1: $it")
 }
 
-println("Part 1: $totalMatchesPart1")
-
-var totalMatchesPart2 = 0
-
-input.forEach {
+input.count {
     it.split(":").let {
         val password = it.last().trim()
         val policy = it.first()
@@ -1033,11 +1027,9 @@ input.forEach {
             val index2 = it[1].toInt() - 1
             val character = it[2]
 
-            if ((password[index1] == character[0]) xor (password[index2] == character[0])) {
-                totalMatchesPart2++
-            }
+            (password[index1] == character[0]) xor (password[index2] == character[0])
         }
     }
+}.let {
+    println("Part 2: $it")
 }
-
-println("Part 2: $totalMatchesPart2")

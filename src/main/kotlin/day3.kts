@@ -329,15 +329,12 @@ val maxIndex = input[0].length
 var currentIndexPart1 = 0
 var treeCountPart1 = 0
 
-input.forEach { currentLine ->
-    currentLine[currentIndexPart1].takeIf { it == tree }?.let {
-        treeCountPart1++
-    }
-    currentIndexPart1 = (currentIndexPart1 + 3) % maxIndex
-}
-
-println("Part 1: $treeCountPart1")
-
+data class Slope(
+        val sidewaysMovement: Int,
+        val downwardMovement: Int,
+        var currentIndex: Int = 0,
+        var treeCount: Int = 0
+)
 
 var slopes = listOf(
         Slope(1, 1),
@@ -345,26 +342,6 @@ var slopes = listOf(
         Slope(5, 1),
         Slope(7, 1),
         Slope(1, 2)
-)
-
-input.forEachIndexed { index, currentLine ->
-    slopes.forEach { slope ->
-        if ((index % slope.downwardMovement) == 0) {
-            currentLine[slope.currentIndex].takeIf { it == tree }?.let {
-                slope.treeCount++
-            }
-            slope.currentIndex = (slope.currentIndex + slope.sidewaysMovement) % maxIndex
-        }
-    }
-}
-
-println("Part 2: ${slopes.multiplyOf { it.treeCount }}")
-
-data class Slope(
-        val sidewaysMovement: Int,
-        val downwardMovement: Int,
-        var currentIndex: Int = 0,
-        var treeCount: Int = 0
 )
 
 inline fun <T> Iterable<T>.multiplyOf(selector: (T) -> Int): Long {
@@ -378,3 +355,25 @@ inline fun <T> Iterable<T>.multiplyOf(selector: (T) -> Int): Long {
     }
     return total
 }
+
+input.forEach { currentLine ->
+    currentLine[currentIndexPart1].takeIf { it == tree }?.let {
+        treeCountPart1++
+    }
+    currentIndexPart1 = (currentIndexPart1 + 3) % maxIndex
+}
+
+println("Part 1: $treeCountPart1")
+
+input.forEachIndexed { index, currentLine ->
+    slopes.forEach { slope ->
+        if ((index % slope.downwardMovement) == 0) {
+            currentLine[slope.currentIndex].takeIf { it == tree }?.let {
+                slope.treeCount++
+            }
+            slope.currentIndex = (slope.currentIndex + slope.sidewaysMovement) % maxIndex
+        }
+    }
+}
+
+println("Part 2: ${slopes.multiplyOf { it.treeCount }}")
