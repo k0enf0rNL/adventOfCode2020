@@ -299,15 +299,16 @@ val validFields = listOf(
 fun valueInPassportForFieldname(passport: String, fieldName: String): String? =
         Regex("$fieldName:(.\\S*)").find(passport)?.groupValues?.get(1)
 
+val requiredFields = validFields.filter { !it.optional }
+
 input.count { passport ->
-    validFields.filter { !it.optional }.all { it.name in passport }
+    requiredFields.all { it.name in passport }
 }.let {
     println("Part 1: $it")
 }
 
 input.count { passport ->
-    validFields
-            .filter { !it.optional }
+    requiredFields
             .all { it.name in passport && it.isValid(valueInPassportForFieldname(passport, it.name)) }
 }.let {
     println("Part 2: $it")
