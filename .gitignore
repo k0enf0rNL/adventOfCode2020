@@ -28,4 +28,5 @@ jdbc-disabled
 .vscode
 
 !.idea/runConfigurations
+/.gradle
 
