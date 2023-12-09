@@ -7,8 +7,21 @@ fun <T> List<T>.split(predicate: (T) -> Boolean): List<List<T>> =
         acc
     }.filterNot { it.isEmpty() }
 
-private fun gcd(a: Long, b: Long): Long =
+fun gcd(a: Long, b: Long): Long =
     if (b == 0L) a else gcd(b, a % b)
 
-private fun lcm(a: Long, b: Long): Long =
+fun lcm(a: Long, b: Long): Long =
     (a * b) / gcd(a, b)
+
+fun <T> List<List<T>>.transpose(): List<List<T>> {
+    val transposedList = ArrayList<MutableList<T>>(maxOf { it.size })
+    for (i in 1..maxOf { it.size }) {
+        transposedList.add(ArrayList(size))
+    }
+    forEachIndexed { rowindex, row ->
+        row.forEachIndexed { columnindex, column ->
+            transposedList[columnindex].add(rowindex, column)
+        }
+    }
+    return transposedList
+}
