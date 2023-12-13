@@ -72,6 +72,7 @@ fun main() {
     val seedsPartTwo: List<SeedPartTwo> = input.first { it.first().contains("seeds:") }
         .let { Regex("(\\d+)").findAll(it.first()).chunked(2).map { SeedPartTwo((it[0].value.toLong()..(it[0].value.toLong() + it[1].value.toLong())), null) }.toList() }
 
+    var counter = 0
     val lowestLocations = seedsPartTwo.map { seedPartTwo ->
         var valueToTry: Long = seedPartTwo.number.first
         while (valueToTry <= seedPartTwo.number.last) {
@@ -87,9 +88,11 @@ fun main() {
                 .minByOrNull { it.remainingRange!! }
                 ?.let { valueToTry += it.remainingRange!! }
             seedPartTwo.lowestLocation = listOf(humidityToLocationValue.correspondingValue, seedPartTwo.lowestLocation).filterNotNull().minBy { it }
+            counter++
         }
         seedPartTwo.lowestLocation
     }
 
+    println(counter)
     println(lowestLocations.minBy { it ?: -1 })
 }
