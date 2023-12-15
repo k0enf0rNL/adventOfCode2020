@@ -36,14 +36,18 @@ fun lcm(a: Long, b: Long): Long =
     (a * b) / gcd(a, b)
 
 fun <T> List<List<T>>.transpose(): List<List<T>> {
-    val transposedList = ArrayList<MutableList<T>>(maxOf { it.size })
-    for (i in 1..maxOf { it.size }) {
-        transposedList.add(ArrayList(size))
-    }
-    forEachIndexed { rowindex, row ->
-        row.forEachIndexed { columnindex, column ->
-            transposedList[columnindex].add(rowindex, column)
+    if (this.isEmpty()) return this
+
+    val width = this[0].size
+    val height = this.size
+
+    val transposed = MutableList(width) { MutableList(height) { this[0][0] } }
+
+    for (i in 0 until width) {
+        for (j in 0 until height) {
+            transposed[i][j] = this[j][i]
         }
     }
-    return transposedList
+
+    return transposed
 }
