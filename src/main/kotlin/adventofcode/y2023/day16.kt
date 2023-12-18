@@ -1,15 +1,8 @@
 package adventofcode.y2023
 
+import adventofcode.utils.Direction
 import adventofcode.utils.readInput
-import kotlinx.coroutines.runBlocking
 import kotlin.math.max
-
-enum class Direction {
-    UP,
-    DOWN,
-    LEFT,
-    RIGHT
-}
 
 data class Tile(val char: Char, var energized: Boolean = false, val seenBeams: MutableList<Beam> = mutableListOf())
 

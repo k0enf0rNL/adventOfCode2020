@@ -4,6 +4,7 @@ import java.math.BigInteger
 import java.security.MessageDigest
 import kotlin.io.path.Path
 import kotlin.io.path.readLines
+import kotlin.math.abs
 
 /**
  * Reads lines from the given input txt file.
@@ -29,12 +30,6 @@ fun <T> List<T>.split(predicate: (T) -> Boolean): List<List<T>> =
         acc
     }.filterNot { it.isEmpty() }
 
-fun gcd(a: Long, b: Long): Long =
-    if (b == 0L) a else gcd(b, a % b)
-
-fun lcm(a: Long, b: Long): Long =
-    (a * b) / gcd(a, b)
-
 fun <T> List<List<T>>.transpose(): List<List<T>> {
     if (this.isEmpty()) return this
 
@@ -50,4 +45,30 @@ fun <T> List<List<T>>.transpose(): List<List<T>> {
     }
 
     return transposed
+}
+
+fun gcd(a: Long, b: Long): Long =
+    if (b == 0L) a else gcd(b, a % b)
+
+// Least Common Multiple
+fun lcm(a: Long, b: Long): Long =
+    (a * b) / gcd(a, b)
+
+// Picks theorem
+fun calculateAreaOfPolygonByPicksTheorem(a: Long, b: Long): Long {
+    return a - b / 2 + 1
+}
+
+// Shoelace formula
+fun calculateAreaOfConvexHullUsingShoelace(points: List<Point>): Long {
+    var sum1 = 0.0 // Sum of (x[i]*y[i+1]) for all i
+    var sum2 = 0.0 // Sum of (y[i]*x[i+1]) for all i
+
+    for (i in points.indices) {
+        val nextIndex = if (i == points.size - 1) 0 else i + 1
+        sum1 += points[i].columnIndex * points[nextIndex].rowIndex
+        sum2 += points[i].rowIndex * points[nextIndex].columnIndex
+    }
+
+    return (abs(sum1 - sum2) / 2.0).toLong() // area by Shoelace formula
 }
