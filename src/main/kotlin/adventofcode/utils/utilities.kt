@@ -28,7 +28,7 @@ fun <T> List<T>.split(predicate: (T) -> Boolean): List<List<T>> =
         if (predicate(t)) acc.add(mutableListOf())
         else acc.last().add(t)
         acc
-    }.filterNot { it.isEmpty() }
+    }
 
 fun <T> List<List<T>>.transpose(): List<List<T>> {
     if (this.isEmpty()) return this
