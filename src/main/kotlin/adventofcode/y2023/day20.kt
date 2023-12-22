@@ -1,5 +1,6 @@
 package adventofcode.y2023
 
+import adventofcode.utils.gcd
 import adventofcode.utils.lcm
 import adventofcode.utils.readInput
 import java.util.LinkedList
