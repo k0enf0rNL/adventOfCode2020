@@ -47,6 +47,17 @@ fun <T> List<List<T>>.transpose(): List<List<T>> {
     return transposed
 }
 
+fun <T : Any> Iterable<T>.distinctPairs(): Sequence<Pair<T, T>> = sequence {
+    val iter = this@distinctPairs.iterator()
+    if (!iter.hasNext()) return@sequence
+    val previous = mutableListOf(iter.next())
+    while (iter.hasNext()) {
+        val second = iter.next()
+        for (first in previous) yield(first to second)
+        previous.add(second)
+    }
+}
+
 fun gcd(a: Long, b: Long): Long =
     if (b == 0L) a else gcd(b, a % b)
 

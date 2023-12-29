@@ -7,24 +7,24 @@ import adventofcode.utils.getNextPoint
 import adventofcode.utils.getOtherDirectionsWithoutGoingBack
 import adventofcode.utils.readInput
 
-data class PointInDirection(val point: Point, val direction: Direction, val line: Int) {
-    fun neighbours(): List<PointInDirection> = buildList {
+data class PointInDirectionWithLine(val point: Point, val direction: Direction, val line: Int) {
+    fun neighbours(): List<PointInDirectionWithLine> = buildList {
         if (line < 3) {
-            add(PointInDirection(point.getNextPoint(direction), direction, line + 1))
+            add(PointInDirectionWithLine(point.getNextPoint(direction), direction, line + 1))
         }
         direction.getOtherDirectionsWithoutGoingBack().forEach {
-            add(PointInDirection(point.getNextPoint(it), it, 1))
+            add(PointInDirectionWithLine(point.getNextPoint(it), it, 1))
         }
     }
 
-    fun neighboursPart2(): List<PointInDirection> = buildList {
+    fun neighboursPart2(): List<PointInDirectionWithLine> = buildList {
         if (line < 10) {
-            add(PointInDirection(point.getNextPoint(direction), direction, line + 1))
+            add(PointInDirectionWithLine(point.getNextPoint(direction), direction, line + 1))
         }
         //line == 0 caters for the starting state where we can go any direction
         if (line >= 4 || line == 0) {
             direction.getOtherDirectionsWithoutGoingBack().forEach {
-                add(PointInDirection(point.getNextPoint(it), it, 1))
+                add(PointInDirectionWithLine(point.getNextPoint(it), it, 1))
             }
         }
     }
@@ -33,7 +33,7 @@ data class PointInDirection(val point: Point, val direction: Direction, val line
 fun main() {
     val input = readInput("2023/day17.txt")
     val mapOfDigits = input.map { it.map { it.digitToInt() } }
-    val start = PointInDirection(Point(0,0), Direction.RIGHT, 0)
+    val start = PointInDirectionWithLine(Point(0,0), Direction.RIGHT, 0)
     val end = Point(mapOfDigits.first().lastIndex.toLong(), mapOfDigits.lastIndex.toLong())
 
     val path = findShortestPathByPredicate(

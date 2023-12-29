@@ -2,9 +2,9 @@ package adventofcode.y2023
 
 import adventofcode.utils.readInput
 
-data class Game(val number: Int, val sets: List<Set>)
+data class Game(val number: Int, val sets: List<Day2Set>)
 
-data class Set(val balls: Map<String, Int>)
+data class Day2Set(val balls: Map<String, Int>)
 
 fun main() {
 
@@ -13,7 +13,7 @@ fun main() {
             Game(
                 it.substring(5, it.indexOf(":")).toInt(),
                 it.removeRange(0, it.indexOf(":") + 2).split("; ").map {
-                    Set(it.split(", ").map {
+                    Day2Set(it.split(", ").map {
                         val temp = it.split(" ")
                         temp[1] to temp[0].toInt()
                     }.toMap())
