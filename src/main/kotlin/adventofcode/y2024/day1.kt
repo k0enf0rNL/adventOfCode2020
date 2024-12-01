@@ -17,11 +17,6 @@ fun main() {
     println("Part1: $part1")
 
     val part2 = sortedNumbers1
-        .map { n1 -> n1 to sortedNumbers2.count { n2 -> n1 == n2 } }
-        .map { n1WithCount: Pair<Int, Int> ->
-            if (n1WithCount.second != 0) {
-                n1WithCount.first.toLong() * n1WithCount.second
-            } else 0L
-        }.sum()
+        .fold(0L) { acc: Long, n1: Int -> acc + n1 * sortedNumbers2.count { n2 -> n1 == n2 } }
     println("Part2: $part2")
 }
