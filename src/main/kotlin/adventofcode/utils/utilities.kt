@@ -23,6 +23,12 @@ fun String.md5() = BigInteger(1, MessageDigest.getInstance("MD5").digest(toByteA
  */
 fun Any?.println() = println(this)
 
+/**
+ * MutableList plus element returns MutableList instead of List
+ */
+operator fun <T> MutableList<T>.plus(element: T): MutableList<T> =
+    apply { add(element) }
+
 fun <T> List<T>.split(predicate: (T) -> Boolean): List<List<T>> =
     fold(mutableListOf(mutableListOf<T>())) { acc, t ->
         if (predicate(t)) acc.add(mutableListOf())

@@ -1,13 +1,19 @@
 package adventofcode.y2024
 
+import adventofcode.utils.plus
 import adventofcode.utils.readInput
 import kotlin.math.abs
+
 
 fun main() {
     val input: List<String> = readInput("2024/day1.txt")
 
-    val numbers1 = input.map { it.split("   ").first().trim().toInt() }
-    val numbers2 = input.map { it.split("   ").last().trim().toInt() }
+    val (numbers1, numbers2) = input
+        .map { it.split("   ") }
+        .map { it.first().toInt() to it.last().toInt() }
+        .fold(mutableListOf<Int>() to mutableListOf<Int>()) { (accn1, accn2), (n1, n2) ->
+            accn1 + n1 to accn2 + n2
+        }
 
     val sortedNumbers1 = numbers1.sorted()
     val sortedNumbers2 = numbers2.sorted()
