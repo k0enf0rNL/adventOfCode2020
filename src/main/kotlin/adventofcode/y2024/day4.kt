@@ -1,6 +1,5 @@
 package adventofcode.y2024
 
-import adventofcode.utils.println
 import adventofcode.utils.readInput
 
 fun main() {
@@ -12,10 +11,10 @@ fun main() {
                     findVerticalDown(rows, rowIndex, columnIndex) +
                     findHorizontalRight(rows, rowIndex, columnIndex) +
                     findHorizontalLeft(rows, rowIndex, columnIndex) +
-                    findDiagonalRightDown(rows, rowIndex, columnIndex) +
-                    findDiagonalLeftDown(rows, rowIndex, columnIndex) +
-                    findDiagonalRightUp(rows, rowIndex, columnIndex) +
-                    findDiagonalLeftUp(rows, rowIndex, columnIndex)
+                    findDiagonalLeftUpToRightDown(rows, rowIndex, columnIndex) +
+                    findDiagonalRightUpToLeftDown(rows, rowIndex, columnIndex) +
+                    findDiagonalLeftDownToRightUp(rows, rowIndex, columnIndex) +
+                    findDiagonalRightDownToLeftUp(rows, rowIndex, columnIndex)
             } else {
                 0
             }
@@ -26,10 +25,10 @@ fun main() {
     val part2 = rows.mapIndexed { rowIndex, row ->
         row.mapIndexed { columnIndex, value ->
             if (value == 'A') {
-                if (findDiagonalLeftUpToRightDownPart2(rows, rowIndex-2, columnIndex-2) +
-                    findDiagonalRightUpToLeftDownPart2(rows, rowIndex-2, columnIndex+2) +
-                    findDiagonalLeftDownToRightUpPart2(rows, rowIndex+2, columnIndex-2) +
-                    findDiagonalRightDownToLeftUpPart2(rows, rowIndex+2, columnIndex+2) == 2) {
+                if (findDiagonalLeftUpToRightDown(rows, rowIndex-2, columnIndex-2) +
+                    findDiagonalRightUpToLeftDown(rows, rowIndex-2, columnIndex+2) +
+                    findDiagonalLeftDownToRightUp(rows, rowIndex+2, columnIndex-2) +
+                    findDiagonalRightDownToLeftUp(rows, rowIndex+2, columnIndex+2) == 2) {
                     1
                 } else {
                     0
@@ -78,43 +77,7 @@ fun findHorizontalLeft(rows: List<String>, curRowIndex: Int, curColumnIndex: Int
         0
     }
 
-fun findDiagonalRightDown(rows: List<String>, curRowIndex: Int, curColumnIndex: Int): Int =
-    if (rows.size - 1 < curRowIndex + 3 || rows.first().length - 1 < curColumnIndex + 3) {
-        0
-    } else if (rows[curRowIndex + 1][curColumnIndex + 1] == 'M' && rows[curRowIndex + 2][curColumnIndex + 2] == 'A' && rows[curRowIndex + 3][curColumnIndex + 3] == 'S') {
-        1
-    } else {
-        0
-    }
-
-fun findDiagonalLeftDown(rows: List<String>, curRowIndex: Int, curColumnIndex: Int): Int =
-    if (rows.size - 1 < curRowIndex + 3 || 0 > curColumnIndex - 3) {
-        0
-    } else if (rows[curRowIndex + 1][curColumnIndex - 1] == 'M' && rows[curRowIndex + 2][curColumnIndex - 2] == 'A' && rows[curRowIndex + 3][curColumnIndex - 3] == 'S') {
-        1
-    } else {
-        0
-    }
-
-fun findDiagonalRightUp(rows: List<String>, curRowIndex: Int, curColumnIndex: Int): Int =
-    if (0 > curRowIndex - 3 || rows.first().length - 1 < curColumnIndex + 3) {
-        0
-    } else if (rows[curRowIndex - 1][curColumnIndex + 1] == 'M' && rows[curRowIndex - 2][curColumnIndex + 2] == 'A' && rows[curRowIndex - 3][curColumnIndex + 3] == 'S') {
-        1
-    } else {
-        0
-    }
-
-fun findDiagonalLeftUp(rows: List<String>, curRowIndex: Int, curColumnIndex: Int): Int =
-    if (0 > curRowIndex - 3 || 0 > curColumnIndex - 3) {
-        0
-    } else if (rows[curRowIndex - 1][curColumnIndex - 1] == 'M' && rows[curRowIndex - 2][curColumnIndex - 2] == 'A' && rows[curRowIndex - 3][curColumnIndex - 3] == 'S') {
-        1
-    } else {
-        0
-    }
-
-fun findDiagonalLeftUpToRightDownPart2(rows: List<String>, curRowIndex: Int, curColumnIndex: Int): Int =
+fun findDiagonalLeftUpToRightDown(rows: List<String>, curRowIndex: Int, curColumnIndex: Int): Int =
     if (curRowIndex + 1 < 0 || curColumnIndex + 1 < 0 || rows.size - 1 < curRowIndex + 3 || rows.first().length - 1 < curColumnIndex + 3) {
         0
     } else if (rows[curRowIndex + 1][curColumnIndex + 1] == 'M' && rows[curRowIndex + 2][curColumnIndex + 2] == 'A' && rows[curRowIndex + 3][curColumnIndex + 3] == 'S') {
@@ -123,7 +86,7 @@ fun findDiagonalLeftUpToRightDownPart2(rows: List<String>, curRowIndex: Int, cur
         0
     }
 
-fun findDiagonalRightUpToLeftDownPart2(rows: List<String>, curRowIndex: Int, curColumnIndex: Int): Int =
+fun findDiagonalRightUpToLeftDown(rows: List<String>, curRowIndex: Int, curColumnIndex: Int): Int =
     if (curRowIndex + 1 < 0 || rows.first().length - 1 < curColumnIndex - 1 || rows.size - 1 < curRowIndex + 3 || 0 > curColumnIndex - 3) {
         0
     } else if (rows[curRowIndex + 1][curColumnIndex - 1] == 'M' && rows[curRowIndex + 2][curColumnIndex - 2] == 'A' && rows[curRowIndex + 3][curColumnIndex - 3] == 'S') {
@@ -132,7 +95,7 @@ fun findDiagonalRightUpToLeftDownPart2(rows: List<String>, curRowIndex: Int, cur
         0
     }
 
-fun findDiagonalLeftDownToRightUpPart2(rows: List<String>, curRowIndex: Int, curColumnIndex: Int): Int =
+fun findDiagonalLeftDownToRightUp(rows: List<String>, curRowIndex: Int, curColumnIndex: Int): Int =
     if (rows.size - 1 < curRowIndex - 1 || curColumnIndex + 1 < 0 || 0 > curRowIndex - 3 || rows.first().length - 1 < curColumnIndex + 3) {
         0
     } else if (rows[curRowIndex - 1][curColumnIndex + 1] == 'M' && rows[curRowIndex - 2][curColumnIndex + 2] == 'A' && rows[curRowIndex - 3][curColumnIndex + 3] == 'S') {
@@ -141,7 +104,7 @@ fun findDiagonalLeftDownToRightUpPart2(rows: List<String>, curRowIndex: Int, cur
         0
     }
 
-fun findDiagonalRightDownToLeftUpPart2(rows: List<String>, curRowIndex: Int, curColumnIndex: Int): Int =
+fun findDiagonalRightDownToLeftUp(rows: List<String>, curRowIndex: Int, curColumnIndex: Int): Int =
     if (rows.size - 1 < curRowIndex - 1 || rows.first().length - 1 < curColumnIndex - 1 || 0 > curRowIndex - 3 || 0 > curColumnIndex - 3) {
         0
     } else if (rows[curRowIndex - 1][curColumnIndex - 1] == 'M' && rows[curRowIndex - 2][curColumnIndex - 2] == 'A' && rows[curRowIndex - 3][curColumnIndex - 3] == 'S') {
