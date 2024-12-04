@@ -3,10 +3,10 @@ package adventofcode.y2024
 import adventofcode.utils.readInput
 import kotlin.math.abs
 
-sealed class Result(val first: Int, val second: Int) {
-    class Ascending(first: Int, second: Int) : Result(first, second)
-    class Descending(first: Int, second: Int) : Result(first, second)
-    class Unsafe(first: Int, second: Int) : Result(first, second)
+enum class Result {
+    ASCENDING,
+    DESCENDING,
+    UNSAFE
 }
 
 fun main() {
@@ -16,7 +16,7 @@ fun main() {
     val part1 = resultList.countSafe()
     println("Part1: $part1")
 
-    val onlyUnsafeList = resultList.filter { !it.second.all { it is Result.Ascending } && !it.second.all { it is Result.Descending } }
+    val onlyUnsafeList = resultList.filter { !it.second.all { it == Result.ASCENDING } && !it.second.all { it == Result.DESCENDING } }
     val safeUnsafeList = onlyUnsafeList.map { onlyUnsafe ->
         onlyUnsafe.first.indices.map { numberIndexToRemove -> onlyUnsafe.first.filterIndexed { index, _ -> index != numberIndexToRemove } }
     }.map { checkSafeOrUnsafeList(it).countSafe() > 0 }
@@ -26,18 +26,18 @@ fun main() {
 }
 
 private fun List<Pair<List<Int>, List<Result>>>.countSafe() =
-    count { it.second.all { it is Result.Ascending } || it.second.all { it is Result.Descending } }
+    count { it.second.all { it == Result.ASCENDING } || it.second.all { it == Result.DESCENDING } }
 
 private fun checkSafeOrUnsafeList(numbers: List<List<Int>>) = numbers.map {
     it to
         it.windowed(2)
             .map {
                 if (it.first() > it.last() && abs(it.first() - it.last()) <= 3) {
-                    Result.Descending(it.first(), it.last())
+                    Result.DESCENDING
                 } else if (it.first() < it.last() && abs(it.first() - it.last()) <= 3) {
-                    Result.Ascending(it.first(), it.last())
+                    Result.ASCENDING
                 } else {
-                    Result.Unsafe(it.first(), it.last())
+                    Result.UNSAFE
                 }
             }
 }
