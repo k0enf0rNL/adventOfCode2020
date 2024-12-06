@@ -21,7 +21,7 @@ fun String.md5() = BigInteger(1, MessageDigest.getInstance("MD5").digest(toByteA
 /**
  * The cleaner shorthand for printing output.
  */
-fun Any?.println() = println(this)
+fun Any?.println(): Any? = also { println(this) }
 
 /**
  * MutableList plus element returns MutableList instead of List
