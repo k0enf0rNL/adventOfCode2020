@@ -57,7 +57,6 @@ class GraphSearchResult<K>(val start: K, val end: K?, private val result: Map<K,
 
     fun getPath() = end?.let { getPath(it, emptyList()) } ?: throw IllegalStateException("No path found")
     fun seen(): Set<K> = result.keys
-    fun end(): K = end ?: throw IllegalStateException("No path found")
 
     private tailrec fun getPath(endVertex: K, pathEnd: List<K>): List<K> {
         val previous = result[endVertex]?.prev
