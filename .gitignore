@@ -30,3 +30,4 @@ jdbc-disabled
 !.idea/runConfigurations
 /.gradle
 
+input.txt

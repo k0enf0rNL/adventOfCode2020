@@ -21,7 +21,7 @@ data class Node(val name: String) {
 
 fun main() {
 
-    val input: List<String> = readInput("2023/day8.txt")
+    val input: List<String> = readInput("2023/input.txt")
 
     val instructions: CharArray = input.first().toCharArray()
 

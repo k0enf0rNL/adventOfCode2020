@@ -4,7 +4,7 @@ import adventofcode.utils.readInput
 import java.math.BigInteger
 
 fun main() {
-    val input = readInput("2024/day7.txt")
+    val input = readInput("2024/day7/input.txt")
     val calculations = input.map { it.split(": ").first().toBigInteger() to it.split(": ").last().split(" ").map { it.toBigInteger() } }
     val part1 = calculations.filter { calculate(it.second, false).contains(it.first) }.map { it.first }.sumOf { it }
     println("Part1: $part1")

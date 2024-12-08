@@ -2,7 +2,7 @@ import adventofcode.utils.readInput
 
 fun main() {
 
-    val input: List<Int> = readInput("2021/day6.txt")
+    val input: List<Int> = readInput("2021/input.txt")
         .first().split(",")
         .filter { it.isNotBlank() }
         .map { it.toInt() }

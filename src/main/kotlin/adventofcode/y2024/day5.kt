@@ -4,7 +4,7 @@ import adventofcode.utils.readInput
 import adventofcode.utils.split
 
 fun main() {
-    val input = readInput("2024/day5.txt")
+    val input = readInput("2024/day5/input.txt")
     val (rules, updates) = input.split { it.isBlank() }.let { it.first() to it.last() }
     val allowedRulesMap = rules.map { it.split("|").let { it.first().toInt() to it.last().toInt() } }.groupBy { it.first }.mapValues { it.value.map { it.second } }
     val updatesList = updates.map { it.split(",").map { it.toInt() } }

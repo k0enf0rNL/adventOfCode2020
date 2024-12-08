@@ -8,7 +8,7 @@ fun main() {
             (holdingTime * (time - holdingTime)) > distance
     }
 
-    val input: List<String> = readInput("2023/day6.txt")
+    val input: List<String> = readInput("2023/input.txt")
 
     val times = input.first().split(": ").last().let { line -> Regex("(\\d+)").findAll(line).toList() }
     val durations = input.last().split(": ").last().let { line -> Regex("(\\d+)").findAll(line).toList() }

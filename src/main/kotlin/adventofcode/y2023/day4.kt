@@ -23,7 +23,7 @@ fun main() {
     fun getNumbersFromString(line: String): List<Int> =
         Regex("(\\d+)").findAll(line).map { it.value.toInt() }.toList()
 
-    val input: List<String> = readInput("2023/day4.txt")
+    val input: List<String> = readInput("2023/input.txt")
 
     val cards: List<Card> = input.map {
         val splitted = it.split(":").last().split("|")

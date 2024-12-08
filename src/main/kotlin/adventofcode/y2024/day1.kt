@@ -6,7 +6,7 @@ import kotlin.math.abs
 
 
 fun main() {
-    val input: List<String> = readInput("2024/day1.txt")
+    val input: List<String> = readInput("2024/day1/day1.txt")
 
     val (numbers1, numbers2) = input
         .map { it.split("   ") }

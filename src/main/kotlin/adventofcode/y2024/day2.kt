@@ -10,7 +10,7 @@ enum class Result {
 }
 
 fun main() {
-    val input: List<String> = readInput("2024/day2.txt")
+    val input: List<String> = readInput("2024/day2/day2.txt")
     val numbers = input.map { it.split(" ").map(String::toInt) }
     val resultList = checkSafeOrUnsafeList(numbers)
     val part1 = resultList.countSafe()

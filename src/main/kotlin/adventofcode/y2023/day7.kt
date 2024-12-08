@@ -81,7 +81,7 @@ fun main() {
         }
     }
 
-    val input: List<String> = readInput("2023/day7.txt")
+    val input: List<String> = readInput("2023/input.txt")
 
     val hands: List<Hand> = input.map {
         val splitted = it.split(" ")

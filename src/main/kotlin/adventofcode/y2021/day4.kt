@@ -18,7 +18,7 @@ data class Number(
 )
 
 fun main() {
-    val input: MutableList<String> = readInput("2021/day4.txt").toMutableList()
+    val input: MutableList<String> = readInput("2021/input.txt").toMutableList()
 
     val allNumbers = (0..100).map { Number(it) }
 

@@ -12,7 +12,7 @@ import adventofcode.utils.rotateRight
 import kotlin.time.measureTime
 
 fun main() {
-    val input = readInput("2024/day6.txt").map { it.toCharArray().toMutableList() }.toMutableList()
+    val input = readInput("2024/day6/input.txt").map { it.toCharArray().toMutableList() }.toMutableList()
     val startRow = input.indexOfFirst { it.any { it == '^' } }
     val startColumn = input[startRow].indexOf('^')
     val start = PointInDirection(Point(startRow.toLong(), startColumn.toLong()), Direction.UP)

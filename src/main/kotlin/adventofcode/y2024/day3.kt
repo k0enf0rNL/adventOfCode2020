@@ -3,7 +3,7 @@ package adventofcode.y2024
 import adventofcode.utils.readInput
 
 fun main() {
-    val input: List<String> = readInput("2024/day3.txt")
+    val input: List<String> = readInput("2024/day3/input.txt")
     val multiplyNumbers = input.joinToString("").getMuls()
     val part1 = multiplyNumbers.sumOf { numberPair -> numberPair.second.first * numberPair.second.second }
     println("Part1: $part1")

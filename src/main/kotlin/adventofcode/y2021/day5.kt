@@ -43,7 +43,7 @@ fun main() {
         return pointCountList
     }
 
-    val input: List<String> = readInput("2021/day5.txt")
+    val input: List<String> = readInput("2021/input.txt")
 
 // Part 1
     input.map {

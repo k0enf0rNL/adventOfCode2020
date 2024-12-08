@@ -3,7 +3,7 @@ package adventofcode.y2024
 import adventofcode.utils.readInput
 
 fun main() {
-    val rows = readInput("2024/day4.txt")
+    val rows = readInput("2024/day4/input.txt")
     val part1 = rows.mapIndexed { rowIndex, row ->
         row.mapIndexed { columnIndex, value ->
             if (value == 'X') {

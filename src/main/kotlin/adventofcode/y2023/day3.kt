@@ -23,7 +23,7 @@ fun main() {
         }
 
 
-    val input: List<String> = readInput("2023/day3.txt")
+    val input: List<String> = readInput("2023/input.txt")
 
     val numberOnRows = input.flatMapIndexed { index, line -> Regex("(\\d+)").findAll(line).map { NumberOnRow(it.value.toInt(), it.range, index + 1) } }
 

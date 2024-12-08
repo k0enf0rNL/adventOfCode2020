@@ -4,7 +4,7 @@ import adventofcode.utils.readInput
 import adventofcode.utils.transpose
 
 fun main() {
-    val input: List<String> = readInput("2021/day3.txt")
+    val input: List<String> = readInput("2021/input.txt")
 
     fun List<Int>.getCommon(default: Int, comparator: (Map<Int, Int>) -> Map.Entry<Int, Int>) =
         groupingBy { it }

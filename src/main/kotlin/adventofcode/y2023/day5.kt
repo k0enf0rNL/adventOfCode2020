@@ -38,7 +38,7 @@ fun main() {
 
     }
 
-    val input: List<List<String>> = readInput("2023/day5.txt").split { it.isBlank() }
+    val input: List<List<String>> = readInput("2023/input.txt").split { it.isBlank() }
 
     fun getThreeValueMapsFromInput(name: String): ThreeValueMaps =
         input.first { it.first().contains(name) }.drop(1).map {

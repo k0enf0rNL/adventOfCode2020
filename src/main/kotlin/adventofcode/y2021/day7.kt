@@ -4,7 +4,7 @@ import kotlin.math.roundToInt
 
 fun main() {
 
-    val input: List<Int> = readInput("2021/day7.txt")
+    val input: List<Int> = readInput("2021/input.txt")
         .first().split(",")
         .filter { it.isNotBlank() }
         .map { it.toInt() }

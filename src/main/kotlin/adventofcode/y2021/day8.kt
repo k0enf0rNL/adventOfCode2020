@@ -13,7 +13,7 @@ fun main() {
             last().split(" ")
         )
 
-    val input: List<Line> = readInput("2021/day8.txt")
+    val input: List<Line> = readInput("2021/input.txt")
         .map { it.split(" | ").toLine() }
 
 //Part 1
