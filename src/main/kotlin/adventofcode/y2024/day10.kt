@@ -23,7 +23,7 @@ fun main() {
         findAllPathsByPredicate(
             it,
             { it.value == 9 },
-            { findNeighboursWithValue1Higher(input, it) }
+            { pointWithInt -> input.getNeighbours(pointWithInt.point).filter { pointWithInt.value + 1 == it.value } }
         )
     }
     val part1 = paths.map { it.mapNotNull { it.end }.toSet() }.sumOf { it.size }
@@ -32,6 +32,3 @@ fun main() {
     val part2 = paths.map { it.mapNotNull { it.end } }.sumOf { it.size }
     println("Part 2: $part2")
 }
-
-fun findNeighboursWithValue1Higher(input: List<List<PointWithInt>>, pointWithInt: PointWithInt): List<PointWithInt> =
-    input.getNeighbours(pointWithInt.point).filter { pointWithInt.value + 1 == it.value }
