@@ -11,6 +11,7 @@ enum class Direction {
 
 data class PointInDirection(val point: Point, val direction: Direction)
 data class PointInDirectionWithLine(val point: Point, val direction: Direction, val line: Int)
+data class PointWithInt(val point: Point, val value: Int)
 
 fun Point.getNextPoint(direction: Direction): Point =
     when(direction) {
@@ -38,3 +39,7 @@ fun Direction.rotateRight(): Direction =
 
 fun <T> List<List<T>>.getPointOrNull(point: Point): T? =
     getOrNull(point.rowIndex.toInt())?.getOrNull(point.columnIndex.toInt())
+
+fun <T> List<List<T>>.getNeighbours(point: Point): List<T> = Direction.entries.toTypedArray().mapNotNull {
+    getPointOrNull(point.getNextPoint(it))
+}
