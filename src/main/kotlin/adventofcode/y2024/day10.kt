@@ -22,18 +22,16 @@ fun main() {
     }
     val startingPoints = input.flatMap { it.filter { it.value == 0 } }
 
-    measureTime {
-        val paths = startingPoints.map {
-            findAllPathsByPredicate(
-                start = it,
-                endFunction = { it.value == 9 },
-                neighbours = { pointWithInt -> input.getNeighbours(pointWithInt.point).filter { pointWithInt.value + 1 == it.value } }
-            )
-        }
-        val part1 = paths.map { it.mapNotNull { it.end }.toSet() }.sumOf { it.size }
-        println("Part 1: $part1")
+    val paths = startingPoints.map {
+        findAllPathsByPredicate(
+            start = it,
+            endFunction = { it.value == 9 },
+            neighbours = { pointWithInt -> input.getNeighbours(pointWithInt.point).filter { pointWithInt.value + 1 == it.value } }
+        )
+    }
+    val part1 = paths.map { it.mapNotNull { it.end }.toSet() }.sumOf { it.size }
+    println("Part 1: $part1")
 
-        val part2 = paths.map { it.mapNotNull { it.end } }.sumOf { it.size }
-        println("Part 2: $part2")
-    }.println()
+    val part2 = paths.map { it.mapNotNull { it.end } }.sumOf { it.size }
+    println("Part 2: $part2")
 }
