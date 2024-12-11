@@ -4,9 +4,7 @@ import adventofcode.utils.Point
 import adventofcode.utils.PointWithInt
 import adventofcode.utils.findAllPathsByPredicate
 import adventofcode.utils.getNeighbours
-import adventofcode.utils.println
 import adventofcode.utils.readInput
-import kotlin.time.measureTime
 
 fun main() {
     val input = readInput("2024/day10/input.txt").mapIndexed { rowIndex, row ->

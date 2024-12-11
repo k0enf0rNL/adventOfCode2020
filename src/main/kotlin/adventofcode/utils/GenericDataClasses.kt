@@ -1,6 +1,9 @@
 package adventofcode.utils
 
 data class Point(val rowIndex: Long, val columnIndex: Long)
+data class PointInDirection(val point: Point, val direction: Direction)
+data class PointInDirectionWithLine(val point: Point, val direction: Direction, val line: Int)
+data class PointWithInt(val point: Point, val value: Int)
 
 enum class Direction {
     UP,
@@ -8,10 +11,6 @@ enum class Direction {
     LEFT,
     RIGHT
 }
-
-data class PointInDirection(val point: Point, val direction: Direction)
-data class PointInDirectionWithLine(val point: Point, val direction: Direction, val line: Int)
-data class PointWithInt(val point: Point, val value: Int)
 
 fun Point.getNextPoint(direction: Direction): Point =
     when(direction) {
