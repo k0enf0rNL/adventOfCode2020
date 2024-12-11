@@ -1,14 +1,20 @@
 package adventofcode.y2024
 
+import adventofcode.utils.println
 import adventofcode.utils.readInput
+import kotlin.time.measureTime
 
 fun main() {
     val input = readInput("2024/day11/input.txt").first().split(" ").map { it.toLong() }
-    val part1 = input.sumOf { count(it, 25) }
-    println("Part 1: $part1")
+    measureTime {
+        val part1 = input.sumOf { count(it, 25) }
+        println("Part 1: $part1")
+    }.println()
 
-    val part2 = input.sumOf { count(it, 75) }
-    println("Part 2: $part2")
+    measureTime {
+        val part2 = input.sumOf { count(it, 75) }
+        println("Part 2: $part2")
+    }.println()
 }
 
 private val cache = hashMapOf<Pair<Long, Int>, Long>()
