@@ -7,9 +7,9 @@ import java.math.MathContext
 
 data class Machine(val buttonA: Pair<BigDecimal, BigDecimal>, val buttonB: Pair<BigDecimal, BigDecimal>, val prize: Pair<BigDecimal, BigDecimal>) {
     fun calculateTotalButtonPressesToWin(): BigDecimal {
-        val divide: BigDecimal = buttonA.first.multiply(buttonB.second).subtract(buttonB.first.multiply(buttonA.second))
-        val buttonAPresses: BigDecimal = (prize.first.multiply(buttonB.second).subtract(buttonB.first.multiply(prize.second))).divide(divide, MathContext.DECIMAL128)
-        val buttonBPresses: BigDecimal = (buttonA.first.multiply(prize.second).subtract(prize.first.multiply(buttonA.second))).divide(divide, MathContext.DECIMAL128)
+        val divide: BigDecimal = buttonA.first * buttonB.second - buttonB.first * buttonA.second
+        val buttonAPresses: BigDecimal = (prize.first * buttonB.second - buttonB.first * prize.second).divide(divide, MathContext.DECIMAL128)
+        val buttonBPresses: BigDecimal = (buttonA.first * prize.second - prize.first * buttonA.second).divide(divide, MathContext.DECIMAL128)
         if (buttonBPresses.stripTrailingZeros().scale() <= 0 && buttonAPresses.stripTrailingZeros().scale() <= 0) {
             return BigDecimal(3) * buttonAPresses + buttonBPresses
         } else {
