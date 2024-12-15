@@ -32,59 +32,27 @@ private fun getFinalBoxPositionsAfterMovement(startPoint: Point, boxes: Set<Poin
     var currentPositionOfRobot = startPoint
     val currentBoxes = boxes.toMutableSet()
     for (movement in movements) {
-        when (movement) {
-            Direction.UP -> {
-                val relevantBoxes = currentBoxes.filter { it.rowIndex < currentPositionOfRobot.rowIndex && it.columnIndex == currentPositionOfRobot.columnIndex }.toSet()
-                val newRobotAndBoxes = moveRobotAndBoxes(currentPositionOfRobot.getNextPoint(movement), movement, relevantBoxes, walls)
-                if (relevantBoxes != newRobotAndBoxes.second) {
-                    currentBoxes.removeAll(relevantBoxes)
-                    currentBoxes.addAll(newRobotAndBoxes.second)
-                }
-                if (newRobotAndBoxes.first) {
-                    currentPositionOfRobot = currentPositionOfRobot.getNextPoint(movement)
-                }
-            }
-
-            Direction.DOWN -> {
-                val relevantBoxes = currentBoxes.filter { it.rowIndex > currentPositionOfRobot.rowIndex && it.columnIndex == currentPositionOfRobot.columnIndex }.toSet()
-                val newRobotAndBoxes = moveRobotAndBoxes(currentPositionOfRobot.getNextPoint(movement), movement, relevantBoxes, walls)
-                if (relevantBoxes != newRobotAndBoxes.second) {
-                    currentBoxes.removeAll(relevantBoxes)
-                    currentBoxes.addAll(newRobotAndBoxes.second)
-                }
-                if (newRobotAndBoxes.first) {
-                    currentPositionOfRobot = currentPositionOfRobot.getNextPoint(movement)
-                }
-            }
-
-            Direction.LEFT -> {
-                val relevantBoxes = currentBoxes.filter { it.rowIndex == currentPositionOfRobot.rowIndex && it.columnIndex < currentPositionOfRobot.columnIndex }.toSet()
-                val newRobotAndBoxes = moveRobotAndBoxes(currentPositionOfRobot.getNextPoint(movement), movement, relevantBoxes, walls)
-                if (relevantBoxes != newRobotAndBoxes.second) {
-                    currentBoxes.removeAll(relevantBoxes)
-                    currentBoxes.addAll(newRobotAndBoxes.second)
-                }
-                if (newRobotAndBoxes.first) {
-                    currentPositionOfRobot = currentPositionOfRobot.getNextPoint(movement)
-                }
-            }
-
-            Direction.RIGHT -> {
-                val relevantBoxes = currentBoxes.filter { it.rowIndex == currentPositionOfRobot.rowIndex && it.columnIndex > currentPositionOfRobot.columnIndex }.toSet()
-                val newRobotAndBoxes = moveRobotAndBoxes(currentPositionOfRobot.getNextPoint(movement), movement, relevantBoxes, walls)
-                if (relevantBoxes != newRobotAndBoxes.second) {
-                    currentBoxes.removeAll(relevantBoxes)
-                    currentBoxes.addAll(newRobotAndBoxes.second)
-                }
-                if (newRobotAndBoxes.first) {
-                    currentPositionOfRobot = currentPositionOfRobot.getNextPoint(movement)
-                }
-            }
+        val relevantBoxes = currentBoxes.filter { getFilterBasedOnDirection(movement, it, currentPositionOfRobot) }.toSet()
+        val newRobotAndBoxes = moveRobotAndBoxes(currentPositionOfRobot.getNextPoint(movement), movement, relevantBoxes, walls)
+        if (relevantBoxes != newRobotAndBoxes.second) {
+            currentBoxes.removeAll(relevantBoxes)
+            currentBoxes.addAll(newRobotAndBoxes.second)
+        }
+        if (newRobotAndBoxes.first) {
+            currentPositionOfRobot = currentPositionOfRobot.getNextPoint(movement)
         }
 //        prettyPrint(currentPositionOfRobot, currentBoxes, walls, movement)
     }
     return currentBoxes.toSet()
 }
+
+private fun getFilterBasedOnDirection(direction: Direction, it: Point, currentPositionOfRobot: Point): Boolean =
+    when (direction) {
+        Direction.UP -> it.rowIndex < currentPositionOfRobot.rowIndex && it.columnIndex == currentPositionOfRobot.columnIndex
+        Direction.DOWN -> it.rowIndex > currentPositionOfRobot.rowIndex && it.columnIndex == currentPositionOfRobot.columnIndex
+        Direction.LEFT -> it.rowIndex == currentPositionOfRobot.rowIndex && it.columnIndex < currentPositionOfRobot.columnIndex
+        Direction.RIGHT -> it.rowIndex == currentPositionOfRobot.rowIndex && it.columnIndex > currentPositionOfRobot.columnIndex
+    }
 
 private fun prettyPrint(currentPositionOfRobot: Point, currentBoxes: MutableSet<Point>, walls: Set<Point>, movement: Direction) {
     println("Move: $movement")
