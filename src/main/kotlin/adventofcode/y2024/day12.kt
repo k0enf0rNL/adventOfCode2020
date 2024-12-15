@@ -34,7 +34,6 @@ fun main() {
     }
 
     val part2 = regions2.sum()
-    // 823417 too low
     println("Part2: $part2")
 }
 
