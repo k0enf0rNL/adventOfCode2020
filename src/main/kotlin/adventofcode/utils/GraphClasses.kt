@@ -68,6 +68,10 @@ fun <T> List<List<T>>.getNeighboursWithDirection(point: Point): List<Pair<T?, Di
     getPointOrNull(point.getNextPoint(it)) to it
 }
 
+fun <T> List<List<T>>.get90degreesNeighboursWithDirection(point: Point, direction: Direction): List<Pair<T?, Direction>> = direction.getOtherDirectionsWithoutGoingBack().plus(direction).toTypedArray().map {
+    getPointOrNull(point.getNextPoint(it)) to it
+}
+
 fun List<List<PointWithChar>>.countCorners(pointWithChar: PointWithChar): Long {
     val diagonals = getNeighboursDiagonally(pointWithChar.point)
     val neighbours = getNeighboursWithDirection(pointWithChar.point)

@@ -3,7 +3,7 @@ package adventofcode.utils
 import java.util.PriorityQueue
 
 /**
- * Implements A* search to find the shortest path between two vertices using a predicate to determine the ending vertex
+ * Implements A* search to find all paths between two vertices using a predicate to determine the ending vertex
  */
 fun <K> findAllPathsByPredicate(
     start: K,
