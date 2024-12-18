@@ -36,6 +36,10 @@ fun Point.getNextPointDiagonally(direction: DiagonalDirection): Point =
         DiagonalDirection.UP_LEFT -> Point(rowIndex - 1, columnIndex - 1)
     }
 
+fun Point.getNeighbours(): List<Point> = Direction.entries.toTypedArray().map {
+    getNextPoint(it)
+}
+
 fun Direction.getOtherDirectionsWithoutGoingBack(): List<Direction> =
     when (this) {
         Direction.UP,
