@@ -64,6 +64,16 @@ fun <T : Any> Iterable<T>.distinctPairs(): Sequence<Pair<T, T>> = sequence {
     }
 }
 
+fun <T> List<T>.permutations(): List<List<T>> {
+    return if (this.size == 1) listOf(this)
+    else this.flatMap { i -> (this - i).permutations().map { listOf(i) + it } }
+}
+
+fun String.permutations() = this.toList().permutations().map { it.joinToString("") }
+
+inline fun <E> Iterable<E>.indexesOf(predicate: (E) -> Boolean)
+    = mapIndexedNotNull{ index, elem -> index.takeIf{ predicate(elem) } }
+
 fun gcd(a: Long, b: Long): Long =
     if (b == 0L) a else gcd(b, a % b)
 
