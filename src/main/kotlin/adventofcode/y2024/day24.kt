@@ -1,6 +1,5 @@
 package adventofcode.y2024
 
-import adventofcode.utils.indexesOf
 import adventofcode.utils.readInput
 import adventofcode.utils.split
 
